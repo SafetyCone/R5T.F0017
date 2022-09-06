@@ -141,11 +141,12 @@ namespace R5T.F0017.F002
         /// </summary>
         public string GetIdentityNameValue(Type type)
         {
-            var isType = Instances.TypeOperator.IsType(type);
-            if (!isType)
-            {
-                throw new Exception("IdentityName for type not implemented.");
-            }
+            // Not sure why?
+            //var isType = Instances.TypeOperator.IsType(type);
+            //if (!isType)
+            //{
+            //    throw new Exception("IdentityName for type not implemented.");
+            //}
 
             var output = type.FullName;
             return output;
