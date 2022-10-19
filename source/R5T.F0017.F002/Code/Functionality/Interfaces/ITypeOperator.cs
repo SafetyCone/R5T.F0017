@@ -8,7 +8,7 @@ using R5T.T0132;
 namespace R5T.F0017.F002
 {
     [DraftFunctionalityMarker]
-    public interface ITypeOperator : IDraftFunctionalityMarker
+    public interface ITypeOperator : IDraftFunctionalityMarker, F0000.ITypeOperator
     {
         public Dictionary<string, string> GetMethodTypeParameterMangledNamesByName(IEnumerable<Type> methodTypeParameters)
         {
@@ -34,15 +34,6 @@ namespace R5T.F0017.F002
                     x => $"`{counter++}");
 
             return typeTypeParameterMangledNamesByName;
-        }
-
-        /// <summary>
-        /// A type is a class, interface, struct, enum, or delegate.
-        /// </summary>
-        public bool IsType(Type type)
-        {
-            var output = type.IsTypeDefinition;
-            return output;
         }
     }
 }

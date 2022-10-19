@@ -7,7 +7,7 @@ namespace R5T.F0017.F002
     {
         #region Infrastructure
 
-        public static TypeOperator Instance { get; } = new();
+        public static ITypeOperator Instance { get; } = new TypeOperator();
 
         private TypeOperator()
         {

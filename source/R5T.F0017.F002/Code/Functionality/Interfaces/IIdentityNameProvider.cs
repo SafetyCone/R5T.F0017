@@ -141,15 +141,56 @@ namespace R5T.F0017.F002
         /// </summary>
         public string GetIdentityNameValue(Type type)
         {
-            // Not sure why?
-            //var isType = Instances.TypeOperator.IsType(type);
-            //if (!isType)
-            //{
-            //    throw new Exception("IdentityName for type not implemented.");
-            //}
+            // If the type is a generic type, process generic type arguments.
+            var isGeneric = Instances.TypeOperator.IsGeneric(type);
 
-            var output = type.FullName;
-            return output;
+            var typeIdentityNameValue = isGeneric
+                ? this.GetIdentityNameValue_GenericType(type)
+                : this.GetIdentityNameValue_NonGenericType(type)
+                ;
+
+            return typeIdentityNameValue;
+        }
+
+        public string GetIdentityNameValue_GenericType(Type type)
+        {
+            // Note, includes the generic parameter count. Example: R5T.T0140.ExampleClass01`1.
+            var namespacedTypeName = Instances.TypeOperator.GetNamespacedTypeName(type);
+
+            // Do not get the values, since the generic type might be open, and if it is closed or partially closed, then the parameters will be the same as the values.
+            var genericTypeParameters = Instances.TypeOperator.GetGenericTypeParameters(type);
+
+            var genericTypeParameterNames = genericTypeParameters
+                .Select(xGenericTypeParameter =>
+                {
+                    var isUnspecified = Instances.TypeOperator.IsUnspecifiedGenericTypeParameterValue(xGenericTypeParameter);
+
+                    var genericTypeParameterName = isUnspecified
+                        ? xGenericTypeParameter.Name
+                        : this.GetIdentityNameValue(xGenericTypeParameter)
+                        ;
+
+                    return genericTypeParameterName;
+                })
+                .Select(genericTypeParameterName => $"[{genericTypeParameterName}]")
+                ;
+
+            var typeParameterNamesJoined = F0000.StringOperator.Instance.Join(
+                Z0000.Characters.Instance.Comma,
+                genericTypeParameterNames);
+
+            var typeParametersNamesText = $"[{typeParameterNamesJoined}]";
+
+            var typeIdentityName = $"{namespacedTypeName}{typeParametersNamesText}";
+
+            return typeIdentityName;
+        }
+
+        public string GetIdentityNameValue_NonGenericType(Type type)
+        {
+            // For non-generic types, the type full name is sufficient to be the type identity name value.
+            var typeIdentityNameValue = type.FullName;
+            return typeIdentityNameValue;
         }
     }
 }

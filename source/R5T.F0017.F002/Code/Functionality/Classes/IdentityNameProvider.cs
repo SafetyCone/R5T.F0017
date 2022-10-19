@@ -7,7 +7,7 @@ namespace R5T.F0017.F002
     {
         #region Infrastructure
 
-        public static IdentityNameProvider Instance { get; } = new();
+        public static IIdentityNameProvider Instance { get; } = new IdentityNameProvider();
 
         private IdentityNameProvider()
         {
