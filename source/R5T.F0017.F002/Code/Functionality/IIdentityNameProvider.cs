@@ -13,13 +13,13 @@ namespace R5T.F0017.F002
     {
         public string GetIdentityName(PropertyInfo propertyInfo)
         {
-            var declaringTypeIdentityNameValue = this.GetIdentityNameValue(propertyInfo.DeclaringType);
+            var declaringTypeIdentityNameValue = GetIdentityNameValue(propertyInfo.DeclaringType);
 
             var propertyNameToken = propertyInfo.Name;
 
             // TODO, handle indexers.
             var isIndexer = propertyInfo.GetIndexParameters().Any();
-            if(isIndexer)
+            if (isIndexer)
             {
                 throw new NotImplementedException("Indexers are unhandled.");
             }
@@ -30,13 +30,13 @@ namespace R5T.F0017.F002
 
         public string GetIdentityName(MethodInfo methodInfo)
         {
-            var declaringTypeIdentityNameValue = this.GetIdentityNameValue(methodInfo.DeclaringType);
+            var declaringTypeIdentityNameValue = GetIdentityNameValue(methodInfo.DeclaringType);
 
             var methodNameToken = methodInfo.Name;
 
-            var methodTypeParameterArityToken = this.GetMethodTypeParametersArityToken(methodInfo);
+            var methodTypeParameterArityToken = GetMethodTypeParametersArityToken(methodInfo);
 
-            var parametersToken = this.GetMethodParametersToken(methodInfo);
+            var parametersToken = GetMethodParametersToken(methodInfo);
 
             var output = $"M:{declaringTypeIdentityNameValue}.{methodNameToken}{methodTypeParameterArityToken}{parametersToken}";
             return output;
@@ -50,7 +50,7 @@ namespace R5T.F0017.F002
 
             var output = methodInfo.IsGenericMethod
                 ? $"``{methodTypeParameterArity}"
-                : String.Empty
+                : string.Empty
                 ;
 
             return output;
@@ -70,13 +70,13 @@ namespace R5T.F0017.F002
 
             var output = parameters.Any()
                 ? "("
-                    + String.Join(",", parameters
-                        .Select(xParameter => this.GetParameterTypeNameForMethodIdentityName(
+                    + string.Join(",", parameters
+                        .Select(xParameter => GetParameterTypeNameForMethodIdentityName(
                             xParameter.ParameterType,
                             typeTypeParameterMangledNamesByName,
                             methodTypeParameterMangledNamesByName)))
                     + ")"
-                : String.Empty;
+                : string.Empty;
             ;
 
             return output;
@@ -98,7 +98,7 @@ namespace R5T.F0017.F002
                 return output;
             }
 
-            if(parameterType.IsGenericType)
+            if (parameterType.IsGenericType)
             {
                 // Keep only the portion up to the generic type parameter arity token separator.
                 var adjustedName = parameterType.Name.Split('`').First();
@@ -107,9 +107,9 @@ namespace R5T.F0017.F002
 
                 var genericArguments = parameterType.GetGenericArguments();
 
-                var argumentsToken = String.Join(",", genericArguments
+                var argumentsToken = string.Join(",", genericArguments
                     // Recurse.
-                    .Select(xGenericArgumentType => this.GetParameterTypeNameForMethodIdentityName(
+                    .Select(xGenericArgumentType => GetParameterTypeNameForMethodIdentityName(
                         xGenericArgumentType,
                         typeTypeParameterMangledNamesByName,
                         methodTypeParameterMangledNamesByName)));
@@ -123,13 +123,13 @@ namespace R5T.F0017.F002
 
         public string GetIdentityName(TypeInfo typeInfo)
         {
-            var output = this.GetIdentityName(typeInfo as Type);
+            var output = GetIdentityName(typeInfo as Type);
             return output;
         }
 
         public string GetIdentityName(Type type)
         {
-            var identityNameValue = this.GetIdentityNameValue(type);
+            var identityNameValue = GetIdentityNameValue(type);
 
             var output = $"T:{identityNameValue}";
             return output;
@@ -145,8 +145,8 @@ namespace R5T.F0017.F002
             var isGeneric = Instances.TypeOperator.IsGeneric(type);
 
             var typeIdentityNameValue = isGeneric
-                ? this.GetIdentityNameValue_GenericType(type)
-                : this.GetIdentityNameValue_NonGenericType(type)
+                ? GetIdentityNameValue_GenericType(type)
+                : GetIdentityNameValue_NonGenericType(type)
                 ;
 
             return typeIdentityNameValue;
@@ -167,7 +167,7 @@ namespace R5T.F0017.F002
 
                     var genericTypeParameterName = isUnspecified
                         ? xGenericTypeParameter.Name
-                        : this.GetIdentityNameValue(xGenericTypeParameter)
+                        : GetIdentityNameValue(xGenericTypeParameter)
                         ;
 
                     return genericTypeParameterName;
