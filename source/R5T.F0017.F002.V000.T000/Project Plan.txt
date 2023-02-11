@@ -1,3 +1,0 @@
-R5T.F0017.F002.V000.T000 - Example types for reflection-based identity name provider functionality verification.
-
-GOALS:

@@ -2,19 +2,21 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using R5T.T0140;
+
 
 namespace R5T.F0017.F002.V000
 {
     public partial class IdentityNameTests
     {
         /// <summary>
-        /// <inheritdoc cref="T000.ExampleClass00" path="/description"/>
+        /// <inheritdoc cref="ExampleClass00" path="/description"/>
         /// </summary>
         [TestMethod]
         public void ExampleClass00()
         {
             var actual = Instances.TypeOperator.GetTypeIdentityName(
-                typeof(T000.ExampleClass00));
+                typeof(ExampleClass00));
 
             var expected = Instances.IdentityNames.ExampleClass00;
 
@@ -24,13 +26,13 @@ namespace R5T.F0017.F002.V000
         }
 
         /// <summary>
-        /// <inheritdoc cref="T000.ExampleClass01{T}" path="/description"/>
+        /// <inheritdoc cref="ExampleClass01{T}" path="/description"/>
         /// </summary>
         [TestMethod]
         public void ExampleClass01()
         {
             var actual = Instances.TypeOperator.GetTypeIdentityName(
-                typeof(T000.ExampleClass01<>));
+                typeof(ExampleClass01<>));
 
             var expected = Instances.IdentityNames.ExampleClass01;
 

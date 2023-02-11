@@ -6,7 +6,7 @@ using R5T.T0131;
 namespace R5T.F0017.F002.V000.Z000
 {
     /// <summary>
-    /// Provides identity names for code elements from the <see cref="T000"/> library.
+    /// Provides identity names for code elements from the R5T.T0140 library.
     /// </summary>
     [ValuesMarker]
     public interface IIdentityNames : IValuesMarker

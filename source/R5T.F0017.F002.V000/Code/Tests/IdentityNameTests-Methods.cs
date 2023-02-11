@@ -2,20 +2,22 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using R5T.T0140;
+
 
 namespace R5T.F0017.F002.V000
 {
     public partial class IdentityNameTests
     {
         /// <summary>
-        /// <inheritdoc cref="T000.ExampleMethods.Method01"/>
+        /// <inheritdoc cref="T0140.ExampleMethods.Method01"/>
         /// </summary>
         [TestMethod]
         public void Method01()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T000.ExampleMethods),
-                nameof(T000.ExampleMethods.Method01),
+                typeof(T0140.ExampleMethods),
+                nameof(T0140.ExampleMethods.Method01),
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
             var expected = Instances.IdentityNames.Method01;
@@ -26,13 +28,13 @@ namespace R5T.F0017.F002.V000
         }
 
         /// <summary>
-        /// <inheritdoc cref="T000.ExampleMethods{T}.Method103"/>
+        /// <inheritdoc cref="T0140.ExampleMethods{T}.Method103"/>
         /// </summary>
         [TestMethod]
         public void Method103()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T000.ExampleMethods<>),
+                typeof(T0140.ExampleMethods<>),
                 "Method104",
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
@@ -44,13 +46,13 @@ namespace R5T.F0017.F002.V000
         }
 
         /// <summary>
-        /// <inheritdoc cref="T000.ExampleMethods{T}.Method105"/>
+        /// <inheritdoc cref="T0140.ExampleMethods{T}.Method105"/>
         /// </summary>
         [TestMethod]
         public void Method105()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T000.ExampleMethods<>),
+                typeof(T0140.ExampleMethods<>),
                 "Method105",
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
@@ -62,13 +64,13 @@ namespace R5T.F0017.F002.V000
         }
 
         /// <summary>
-        /// <inheritdoc cref="T000.ExampleMethods{T}.Method106"/>
+        /// <inheritdoc cref="T0140.ExampleMethods{T}.Method106"/>
         /// </summary>
         [TestMethod]
         public void Method106()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T000.ExampleMethods<>),
+                typeof(T0140.ExampleMethods<>),
                 "Method106",
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
@@ -80,13 +82,13 @@ namespace R5T.F0017.F002.V000
         }
 
         /// <summary>
-        /// <inheritdoc cref="T000.ExampleMethods{T}.Method107"/>
+        /// <inheritdoc cref="T0140.ExampleMethods{T}.Method107"/>
         /// </summary>
         [TestMethod]
         public void Method107()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T000.ExampleMethods<>),
+                typeof(T0140.ExampleMethods<>),
                 "Method107",
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
