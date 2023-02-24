@@ -13,32 +13,32 @@ namespace R5T.F0017.F002.V000
         /// <inheritdoc cref="ExampleClass00" path="/description"/>
         /// </summary>
         [TestMethod]
-        public void ExampleClass00()
+        public void Class_Basic()
         {
             var actual = Instances.TypeOperator.GetTypeIdentityName(
-                typeof(ExampleClass00));
+                Instances.ExampleTypes.BasicClass);
 
-            var expected = Instances.IdentityNames.ExampleClass00;
+            var expected = Instances.IdentityNames.Class_Basic;
 
             Instances.Assertion.AreEqual(
-                actual,
-                expected);
+                expected,
+                actual);
         }
 
         /// <summary>
         /// <inheritdoc cref="ExampleClass01{T}" path="/description"/>
         /// </summary>
         [TestMethod]
-        public void ExampleClass01()
+        public void Class_OpenGeneric()
         {
             var actual = Instances.TypeOperator.GetTypeIdentityName(
-                typeof(ExampleClass01<>));
+                Instances.ExampleTypes.OpenGenericClass);
 
-            var expected = Instances.IdentityNames.ExampleClass01;
+            var expected = Instances.IdentityNames.Class_OpenGeneric;
 
             Instances.Assertion.AreEqual(
-                actual,
-                expected);
+                expected,
+                actual);
         }
     }
 }

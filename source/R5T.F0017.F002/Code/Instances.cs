@@ -5,8 +5,9 @@ namespace R5T.F0017.F002
 {
     public static class Instances
     {
-        public static IIdentityNameProvider IdentityNameProvider { get; } = F002.IdentityNameProvider.Instance;
-        public static F0000.INamespacedTypeNameOperator NamespacedTypeNameOperator { get; } = F0000.NamespacedTypeNameOperator.Instance;
-        public static ITypeOperator TypeOperator { get; } = F002.TypeOperator.Instance;
+        public static Z0000.ICharacters Characters => Z0000.Characters.Instance;
+        public static IIdentityNameProvider IdentityNameProvider => F002.IdentityNameProvider.Instance;
+        public static F0000.INamespacedTypeNameOperator NamespacedTypeNameOperator => F0000.NamespacedTypeNameOperator.Instance;
+        public static ITypeOperator TypeOperator => F002.TypeOperator.Instance;
     }
 }

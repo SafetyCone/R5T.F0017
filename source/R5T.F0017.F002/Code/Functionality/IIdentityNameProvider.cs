@@ -157,6 +157,15 @@ namespace R5T.F0017.F002
             // Note, includes the generic parameter count. Example: R5T.T0140.ExampleClass01`1.
             var namespacedTypeName = Instances.TypeOperator.GetNamespacedTypeName(type);
 
+            var typeIdentityName = namespacedTypeName;
+            return typeIdentityName;
+        }
+
+        public string GetIdentityNameValue_GenericType_WithTypeParameters(Type type)
+        {
+            // Note, includes the generic parameter count. Example: R5T.T0140.ExampleClass01`1.
+            var namespacedTypeName = Instances.TypeOperator.GetNamespacedTypeName(type);
+
             // Do not get the values, since the generic type might be open, and if it is closed or partially closed, then the parameters will be the same as the values.
             var genericTypeParameters = Instances.TypeOperator.GetGenericTypeParameters(type);
 

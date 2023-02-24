@@ -10,93 +10,112 @@ namespace R5T.F0017.F002.V000
     public partial class IdentityNameTests
     {
         /// <summary>
-        /// <inheritdoc cref="T0140.ExampleMethods.Method01"/>
+        /// <inheritdoc cref="ExampleMethods.Method01"/>
         /// </summary>
         [TestMethod]
-        public void Method01()
+        public void Method_Basic()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T0140.ExampleMethods),
-                nameof(T0140.ExampleMethods.Method01),
+                typeof(ExampleMethods),
+                nameof(ExampleMethods.Method01),
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
-            var expected = Instances.IdentityNames.Method01;
+            var expected = Instances.IdentityNames.Method_Basic;
 
             Instances.Assertion.AreEqual(
-                actual,
-                expected);
+                expected,
+                actual);
         }
 
         /// <summary>
-        /// <inheritdoc cref="T0140.ExampleMethods{T}.Method103"/>
+        /// <inheritdoc cref="ExampleMethods.Method13"/>
         /// </summary>
         [TestMethod]
-        public void Method103()
+        public void Method_NestedClosedGenericTypeAsArgument()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T0140.ExampleMethods<>),
+                typeof(ExampleMethods),
+                nameof(ExampleMethods.Method13),
+                methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
+
+            var expected = Instances.IdentityNames.Method_WithNestedClosedGenericArgument;
+
+            Instances.Assertion.AreEqual(
+                expected,
+                actual);
+        }
+
+
+        /// <summary>
+        /// <inheritdoc cref="ExampleMethods{T}.Method104"/>
+        /// </summary>
+        [TestMethod]
+        public void Method_GenericMethodOnGenericClass()
+        {
+            var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
+                typeof(ExampleMethods<>),
                 "Method104",
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
-            var expected = Instances.IdentityNames.Method104;
+            var expected = Instances.IdentityNames.Method_GenericMethodOnGenericClass;
 
             Instances.Assertion.AreEqual(
-                actual,
-                expected);
+                expected,
+                actual);
         }
 
         /// <summary>
-        /// <inheritdoc cref="T0140.ExampleMethods{T}.Method105"/>
+        /// <inheritdoc cref="ExampleMethods{T}.Method105"/>
         /// </summary>
         [TestMethod]
-        public void Method105()
+        public void Method_GenericMethodOnGenericClass_WithBothGenericTypesAsArguments()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T0140.ExampleMethods<>),
+                typeof(ExampleMethods<>),
                 "Method105",
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
-            var expected = Instances.IdentityNames.Method105;
+            var expected = Instances.IdentityNames.Method_GenericMethodOnGenericClass_WithBothGenericTypesAsArguments;
 
             Instances.Assertion.AreEqual(
-                actual,
-                expected);
+                expected,
+                actual);
         }
 
         /// <summary>
-        /// <inheritdoc cref="T0140.ExampleMethods{T}.Method106"/>
+        /// <inheritdoc cref="ExampleMethods{T}.Method106"/>
         /// </summary>
         [TestMethod]
-        public void Method106()
+        public void Method_GenericMethodOnGenericClass_WithBothGenericTypesAndStringAsArguments()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T0140.ExampleMethods<>),
+                typeof(ExampleMethods<>),
                 "Method106",
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
-            var expected = Instances.IdentityNames.Method106;
+            var expected = Instances.IdentityNames.Method_GenericMethodOnGenericClass_WithBothGenericTypesAndStringAsArguments;
 
             Instances.Assertion.AreEqual(
-                actual,
-                expected);
+                expected,
+                actual);
         }
 
         /// <summary>
-        /// <inheritdoc cref="T0140.ExampleMethods{T}.Method107"/>
+        /// <inheritdoc cref="ExampleMethods{T}.Method107"/>
         /// </summary>
         [TestMethod]
-        public void Method107()
+        public void Method_NestedGenericTypeAsArgument()
         {
             var actual = Instances.ReflectedInstanceContextProvider.InExampleMethodContext(
-                typeof(T0140.ExampleMethods<>),
+                typeof(ExampleMethods<>),
                 "Method107",
                 methodInfo => Instances.IdentityNameProvider.GetIdentityName(methodInfo));
 
-            var expected = Instances.IdentityNames.Method107;
+            var expected = Instances.IdentityNames.Method_NestedGenericTypeAsArgument;
 
             Instances.Assertion.AreEqual(
-                actual,
-                expected);
+                expected,
+                actual);
         }
     }
 }

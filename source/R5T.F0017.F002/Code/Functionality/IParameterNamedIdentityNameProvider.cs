@@ -13,7 +13,15 @@ namespace R5T.F0017.F002
     {
         public string GetNamespacedTypeName(Type type)
         {
-            var output = $"{type.Namespace}.{type.Name}";
+            var isGeneric = type.IsGenericType;
+
+            var typeName = isGeneric
+                ? type.Name[..type.Name.IndexOf(
+                    Instances.Characters.Tick)]
+                : type.Name
+                ;
+
+            var output = $"{type.Namespace}.{typeName}";
             return output;
         }
 
@@ -30,6 +38,14 @@ namespace R5T.F0017.F002
             return output;
         }
 
+        public string GetParameterNamedIdentityName(Type typeInfo)
+        {
+            var parameterNamedIdentityNameValue = this.GetParameterNamedIdentityNameValue(typeInfo);
+
+            var output = $"T:{parameterNamedIdentityNameValue}";
+            return output;
+        }
+
         public string GetParameterNamedIdentityName(MethodInfo methodInfo)
         {
             var declaringTypeParameterNamedIdentityNameValue = this.GetParameterNamedIdentityNameValue(methodInfo.DeclaringType);
@@ -39,6 +55,8 @@ namespace R5T.F0017.F002
             var methodTypeParameters = methodInfo.GetGenericArguments();
 
             var methodTypeParametersToken = this.GetTypeParametersToken(methodTypeParameters);
+
+            // TODO: any restrictions on type parameters?
 
             var parameters = methodInfo.GetParameters();
 
