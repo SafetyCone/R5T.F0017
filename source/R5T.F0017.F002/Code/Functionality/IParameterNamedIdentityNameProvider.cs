@@ -63,10 +63,13 @@ namespace R5T.F0017.F002
             var parametersToken = parameters.Any()
                 ? "(" + String.Join(", ", parameters
                         .Select(xParameter => this.GetParameterTokenForMethodIdentityName(xParameter))) + ")"
-                : String.Empty;
+                : Instances.Strings.PairedParentheses;
             ;
 
-            var output = $"M:{declaringTypeParameterNamedIdentityNameValue}.{methodNameToken}{methodTypeParametersToken}{parametersToken}";
+            // Return (output) token.
+            var returnTypeToken = this.GetParameterTypeNameForMethodIdentityName(methodInfo.ReturnType);
+
+            var output = $"M:{declaringTypeParameterNamedIdentityNameValue}.{methodNameToken}{methodTypeParametersToken}{parametersToken};{returnTypeToken}";
             return output;
         }
 
@@ -105,7 +108,14 @@ namespace R5T.F0017.F002
                     // Recurse.
                     .Select(xGenericArgumentType => this.GetParameterTypeNameForMethodIdentityName(xGenericArgumentType)));
 
-                var output = $"{namespacedTypeName}{{{argumentsToken}}}";
+                var output = $"{namespacedTypeName}{{{argumentsToken}}}"
+                    .Replace(
+                        Instances.Characters.OpenBracket,
+                        Instances.Characters.OpenAngleBracket)
+                    .Replace(
+                        Instances.Characters.CloseBracket,
+                        Instances.Characters.CloseAngleBracket)
+                    ;
                 return output;
             }
 
