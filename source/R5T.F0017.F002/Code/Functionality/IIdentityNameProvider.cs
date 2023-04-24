@@ -11,6 +11,16 @@ namespace R5T.F0017.F002
     [DraftFunctionalityMarker]
     public interface IIdentityNameProvider : IDraftFunctionalityMarker
     {
+        public string GetIdentityName(FieldInfo fieldInfo)
+        {
+            var declaringTypeIdentityNameValue = GetIdentityNameValue(fieldInfo.DeclaringType);
+
+            var fieldNameToken = fieldInfo.Name;
+
+            var output = $"P:{declaringTypeIdentityNameValue}.{fieldNameToken}";
+            return output;
+        }
+
         public string GetIdentityName(PropertyInfo propertyInfo)
         {
             var declaringTypeIdentityNameValue = GetIdentityNameValue(propertyInfo.DeclaringType);

@@ -46,6 +46,17 @@ namespace R5T.F0017.F002
             return output;
         }
 
+        public string GetParameterNamedIdentityName(PropertyInfo propertyInfo)
+        {
+            var identityName = Instances.IdentityNameProvider.GetIdentityName(propertyInfo);
+
+            // Append the type of the property.
+            var returnTypeToken = this.GetParameterTypeNameForMethodIdentityName(propertyInfo.PropertyType);
+
+            var output = $"{identityName};{returnTypeToken}";
+            return output;
+        }
+
         public string GetParameterNamedIdentityName(MethodInfo methodInfo)
         {
             var declaringTypeParameterNamedIdentityNameValue = this.GetParameterNamedIdentityNameValue(methodInfo.DeclaringType);
