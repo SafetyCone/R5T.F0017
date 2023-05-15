@@ -106,20 +106,27 @@ namespace R5T.F0017.F002
 
         public string GetParameterTypeNameForMethodIdentityName(Type parameterType)
         {
-            if (parameterType.IsGenericType)
+            var genericArguments = parameterType.GetGenericArguments();
+
+            var isGenericType = genericArguments.Any();
+            if (isGenericType)
             {
                 // Keep only the portion up to the generic type parameter arity token separator.
                 var adjustedName = parameterType.Name.Split('`').First();
 
                 var namespacedTypeName = $"{parameterType.Namespace}.{adjustedName}";
 
-                var genericArguments = parameterType.GetGenericArguments();
-
                 var argumentsToken = String.Join(", ", genericArguments
                     // Recurse.
                     .Select(xGenericArgumentType => this.GetParameterTypeNameForMethodIdentityName(xGenericArgumentType)));
 
-                var output = $"{namespacedTypeName}{{{argumentsToken}}}"
+                var referenceToken = parameterType.IsByRef
+                    // Uses the @, not & symbol.
+                    ? Instances.Strings.At
+                    : Instances.Strings.Empty
+                    ;
+
+                var output = $"{namespacedTypeName}{{{argumentsToken}}}{referenceToken}"
                     .Replace(
                         Instances.Characters.OpenBracket,
                         Instances.Characters.OpenAngleBracket)
@@ -130,7 +137,7 @@ namespace R5T.F0017.F002
                 return output;
             }
 
-            if (parameterType.IsGenericTypeParameter || parameterType.IsGenericMethodParameter)
+           if (parameterType.IsGenericTypeParameter || parameterType.IsGenericMethodParameter)
             {
                 return parameterType.Name;
             }

@@ -40,13 +40,13 @@ namespace R5T.F0017.F002
 
         public string GetIdentityName(MethodInfo methodInfo)
         {
-            var declaringTypeIdentityNameValue = GetIdentityNameValue(methodInfo.DeclaringType);
+            var declaringTypeIdentityNameValue = this.GetIdentityNameValue(methodInfo.DeclaringType);
 
             var methodNameToken = methodInfo.Name;
 
-            var methodTypeParameterArityToken = GetMethodTypeParametersArityToken(methodInfo);
+            var methodTypeParameterArityToken = this.GetMethodTypeParametersArityToken(methodInfo);
 
-            var parametersToken = GetMethodParametersToken(methodInfo);
+            var parametersToken = this.GetMethodParametersToken(methodInfo);
 
             var output = $"M:{declaringTypeIdentityNameValue}.{methodNameToken}{methodTypeParameterArityToken}{parametersToken}";
             return output;
@@ -108,14 +108,18 @@ namespace R5T.F0017.F002
                 return output;
             }
 
-            if (parameterType.IsGenericType)
+            // parameterType.IsGenericType is WRONG for types like Dictionary`2&, System.Collections.Generic.Dictionary`2[[Microsoft.CodeAnalysis.SyntaxTrivia, Microsoft.CodeAnalysis, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35],[Microsoft.CodeAnalysis.SyntaxAnnotation, Microsoft.CodeAnalysis, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]&
+            // It says false when it should say true!
+            // So use a better for-ref type.
+            var genericArguments = parameterType.GetGenericArguments();
+
+            var isGenericType = genericArguments.Any();
+            if (isGenericType)
             {
                 // Keep only the portion up to the generic type parameter arity token separator.
                 var adjustedName = parameterType.Name.Split('`').First();
 
                 var namespacedTypeName = $"{parameterType.Namespace}.{adjustedName}";
-
-                var genericArguments = parameterType.GetGenericArguments();
 
                 var argumentsToken = string.Join(",", genericArguments
                     // Recurse.
@@ -124,7 +128,13 @@ namespace R5T.F0017.F002
                         typeTypeParameterMangledNamesByName,
                         methodTypeParameterMangledNamesByName)));
 
-                var output = $"{namespacedTypeName}{{{argumentsToken}}}";
+                var referenceToken = parameterType.IsByRef
+                    // Uses the @, not & symbol.
+                    ? Instances.Strings.At
+                    : Instances.Strings.Empty
+                    ;
+
+                var output = $"{namespacedTypeName}{{{argumentsToken}}}{referenceToken}";
                 return output;
             }
 
