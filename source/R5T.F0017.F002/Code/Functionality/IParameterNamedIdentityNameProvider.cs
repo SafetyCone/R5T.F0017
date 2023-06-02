@@ -106,6 +106,16 @@ namespace R5T.F0017.F002
 
         public string GetParameterTypeNameForMethodIdentityName(Type parameterType)
         {
+            if (parameterType.IsArray)
+            {
+                var elementType = parameterType.GetElementType();
+
+                var elementTypeName = this.GetParameterTypeNameForMethodIdentityName(elementType);
+
+                var output = elementTypeName + "[]";
+                return output;
+            }
+
             var genericArguments = parameterType.GetGenericArguments();
 
             var isGenericType = genericArguments.Any();

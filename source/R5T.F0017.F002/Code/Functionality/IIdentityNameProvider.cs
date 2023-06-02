@@ -96,6 +96,19 @@ namespace R5T.F0017.F002
             Dictionary<string, string> typeTypeParameterMangledNamesByName,
             Dictionary<string, string> methodTypeParameterMangledNamesByName)
         {
+            if(parameterType.IsArray)
+            {
+                var elementType = parameterType.GetElementType();
+
+                var elementTypeName = this.GetParameterTypeNameForMethodIdentityName(
+                    elementType,
+                    typeTypeParameterMangledNamesByName,
+                    methodTypeParameterMangledNamesByName);
+
+                var output = elementTypeName + "[]";
+                return output;
+            }
+
             if (parameterType.IsGenericMethodParameter)
             {
                 var output = methodTypeParameterMangledNamesByName[parameterType.Name];
