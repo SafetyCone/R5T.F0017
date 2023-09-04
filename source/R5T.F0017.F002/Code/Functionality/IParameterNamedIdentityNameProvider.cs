@@ -138,10 +138,10 @@ namespace R5T.F0017.F002
 
                 var output = $"{namespacedTypeName}{{{argumentsToken}}}{referenceToken}"
                     .Replace(
-                        Instances.Characters.OpenBracket,
+                        Instances.Characters.OpenBrace_Correct,
                         Instances.Characters.OpenAngleBracket)
                     .Replace(
-                        Instances.Characters.CloseBracket,
+                        Instances.Characters.CloseBrace_Correct,
                         Instances.Characters.CloseAngleBracket)
                     ;
                 return output;
