@@ -175,7 +175,7 @@ namespace R5T.F0017.F002
         public string GetIdentityNameValue(Type type)
         {
             // If the type is a generic type, process generic type arguments.
-            var isGeneric = Instances.TypeOperator.IsGeneric(type);
+            var isGeneric = Instances.TypeOperator.Is_Generic(type);
 
             var typeIdentityNameValue = isGeneric
                 ? GetIdentityNameValue_GenericType(type)
@@ -187,8 +187,7 @@ namespace R5T.F0017.F002
 
         public string GetIdentityNameValue_GenericType(Type type)
         {
-            // Note, includes the generic parameter count. Example: R5T.T0140.ExampleClass01`1.
-            var namespacedTypeName = Instances.TypeOperator.GetNamespacedTypeName(type);
+            var namespacedTypeName = Instances.TypeOperator.Get_NamespacedTypeName(type);
 
             var typeIdentityName = namespacedTypeName;
             return typeIdentityName;
@@ -196,16 +195,15 @@ namespace R5T.F0017.F002
 
         public string GetIdentityNameValue_GenericType_WithTypeParameters(Type type)
         {
-            // Note, includes the generic parameter count. Example: R5T.T0140.ExampleClass01`1.
-            var namespacedTypeName = Instances.TypeOperator.GetNamespacedTypeName(type);
+            var namespacedTypeName = Instances.TypeOperator.Get_NamespacedTypeName(type);
 
             // Do not get the values, since the generic type might be open, and if it is closed or partially closed, then the parameters will be the same as the values.
-            var genericTypeParameters = Instances.TypeOperator.GetGenericTypeParameters(type);
+            var genericTypeParameters = Instances.TypeOperator.Get_GenericTypeArguments(type);
 
             var genericTypeParameterNames = genericTypeParameters
                 .Select(xGenericTypeParameter =>
                 {
-                    var isUnspecified = Instances.TypeOperator.IsUnspecifiedGenericTypeParameterValue(xGenericTypeParameter);
+                    var isUnspecified = Instances.TypeOperator.Is_UnspecifiedGenericTypeParameterValue(xGenericTypeParameter);
 
                     var genericTypeParameterName = isUnspecified
                         ? xGenericTypeParameter.Name
