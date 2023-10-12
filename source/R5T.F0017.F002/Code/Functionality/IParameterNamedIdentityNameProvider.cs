@@ -13,16 +13,27 @@ namespace R5T.F0017.F002
     {
         public string GetNamespacedTypeName(Type type)
         {
-            var isGeneric = type.IsGenericType;
+            var isNested = type.IsNested;
+            if (isNested)
+            {
+                var parentTypeName = this.GetNamespacedTypeName(type.DeclaringType);
 
-            var typeName = isGeneric
-                ? type.Name[..type.Name.IndexOf(
-                    Instances.Characters.Tick)]
-                : type.Name
-                ;
+                var output = $"{parentTypeName}{Instances.TokenSeparators.NestedTypeNameTokenSeparator}{type.Name}";
+                return output;
+            }
+            else
+            {
+                var isGeneric = type.IsGenericTypeDefinition;
 
-            var output = $"{type.Namespace}.{typeName}";
-            return output;
+                var typeName = isGeneric
+                    ? type.Name[..type.Name.IndexOf(
+                        Instances.Characters.Tick)]
+                    : type.Name
+                    ;
+
+                var output = $"{type.Namespace}.{typeName}";
+                return output;
+            }
         }
 
         public string GetTypeParametersToken(IEnumerable<Type> typeParameters)
